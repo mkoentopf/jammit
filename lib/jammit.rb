@@ -72,7 +72,7 @@ module Jammit
   def self.merge_configs(paths, soft=false)
     merged_conf = {}
     paths.each do |path|
-      exists = File.exists?(path)
+      exists = File.exist?(path)
       return false if soft && !exists
       raise MissingConfiguration, "could not find the \"#{path}\" configuration file" unless exists
       conf = YAML.load(ERB.new(File.read(path)).result)
