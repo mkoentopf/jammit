@@ -80,7 +80,7 @@ module Jammit
 
     # Render the 404 page, if one exists, for any packages that don't.
     def package_not_found
-      return render(:file => NOT_FOUND_PATH, :status => 404) if File.exists?(NOT_FOUND_PATH)
+      return render(:file => NOT_FOUND_PATH, :status => 404) if File.exist?(NOT_FOUND_PATH)
       render :text => "<h1>404: \"#{@package}\" asset package not found.</h1>", :status => 404
     end
 

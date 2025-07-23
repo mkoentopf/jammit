@@ -108,7 +108,7 @@ class PackagerTest < MiniTest::Test
   end
 
   def test_exceptions_for_unwritable_directories
-    return unless File.exists?('text/fixtures/unwritable')
+    return unless File.exist?('text/fixtures/unwritable')
     assert_raises(OutputNotWritable) do
       Jammit.packager.precache_all('test/fixtures/unwritable')
     end
@@ -117,15 +117,15 @@ class PackagerTest < MiniTest::Test
   def test_package_helper
     FileUtils.rm_rf("test/public/assets/*")
     Jammit.package! :config_file => "test/config/assets.yml", :base_url => "http://example.com/"
-    assert File.exists?("test/public/assets/js_test.js")
-    assert File.exists?("test/public/assets/css_test.css")
+    assert File.exist?("test/public/assets/js_test.js")
+    assert File.exist?("test/public/assets/css_test.css")
     FileUtils.rm_rf("test/public/assets")
   end
 
   def test_packaging_javascripts_with_package_names
     FileUtils.rm_rf("test/public/assets/*")
     Jammit.package! :config_file => "test/config/assets.yml", :package_names => [:js_test]
-    assert File.exists?("test/public/assets/js_test.js")
+    assert File.exist?("test/public/assets/js_test.js")
     assert File.read('test/public/assets/js_test.js') == File.read('test/fixtures/jammed/js_test_package_names.js')
     FileUtils.rm_rf("test/public/assets")
   end

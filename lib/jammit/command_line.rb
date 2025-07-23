@@ -36,7 +36,7 @@ Options:
     # command can't run without one.
     def ensure_configuration_file
       config = @options[:config_paths]
-      return true if File.exists?(config) && File.readable?(config)
+      return true if File.exist?(config) && File.readable?(config)
       puts "Could not find the asset configuration file \"#{config}\""
       exit(1)
     end

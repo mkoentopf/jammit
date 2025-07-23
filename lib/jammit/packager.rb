@@ -52,7 +52,7 @@ module Jammit
     # compression level. Ensures that the modification time of both both
     # variants is identical, for web server caching modules, as well as MHTML.
     def cache(package, extension, contents, output_dir, suffix=nil, mtime=nil)
-      FileUtils.mkdir_p(output_dir) unless File.exists?(output_dir)
+      FileUtils.mkdir_p(output_dir) unless File.exist?(output_dir)
       raise OutputNotWritable, "Jammit doesn't have permission to write to \"#{output_dir}\"" unless File.writable?(output_dir)
       mtime ||= latest_mtime package_for(package, extension.to_sym)[:paths]
       files = []
@@ -102,7 +102,7 @@ module Jammit
     # Absolute globs are absolute -- relative globs are relative to ASSET_ROOT.
     # Print a warning if no files were found that match the glob.
     def glob_files(glob)
-      absolute = 
+      absolute =
       paths = if Pathname.new(glob).absolute?
         Dir[glob].sort
       else
@@ -113,7 +113,7 @@ module Jammit
       paths
     end
 
-    # In Rails, the difference between a path and an asset URL is "public".    
+    # In Rails, the difference between a path and an asset URL is "public".
     def path_to_url
       prefix = Jammit.asset_roots.map{ |path| Regexp.escape(path) }.uniq.join("|")
       @path_to_url ||= /\A(#{prefix})(\/?#{Regexp.escape(Jammit.public_root.sub(/#{prefix}/, ''))})?/
@@ -141,7 +141,7 @@ module Jammit
           cached.push Jammit.filename(name, extension, :mhtml) if Jammit.mhtml_enabled
         end
         cached.map! {|file| File.join(output_dir, file) }
-        if cached.any? {|file| !File.exists?(file) }
+        if cached.any? {|file| !File.exist?(file) }
           true
         else
           since = cached.map {|file| File.mtime(file) }.min
